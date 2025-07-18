@@ -5,6 +5,7 @@ session_start();
 <?php $page_title = "Login"; ?>
 <?php include 'includes/head.php' ?>
 <?php include 'includes/header.php' ?>
+<?php include 'includes/config.php' ?>
 <main class="main-content-container">
   <h1 class="page-header">Login</h1>
   <?php

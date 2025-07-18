@@ -15,7 +15,7 @@
       </li>
       <li class="nav-li">
         <a href="http://localhost:8888/cms-project/about.php" class="nav-link">About</a>
-      </li>
+      </li> 
       <li class="nav-li">
         <a href="http://localhost:8888/cms-project/blog.php" class="nav-link">Blog</a>
       </li>
@@ -24,6 +24,9 @@
       </li>
       <li class="nav-li">
         <a href="http://localhost:8888/cms-project/login.php" class="nav-link">Login</a>
+      </li>
+      <li class="nav-li">
+        <a href="http://localhost:8888/cms-project/register.php" class="nav-link">Register</a>
       </li>
     </ul>
   </nav>
