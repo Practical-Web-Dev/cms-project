@@ -10,16 +10,16 @@ session_start();
   <h1 class="page-header">Register</h1>
     <form class="login-form" action="auth.php" method="POST">
     <div class="input-container">
-      <input class="login-input" type="text" name="username" placeholder="Username">
+      <input id="register-username-input" class="login-input" type="text" name="username" placeholder="Username">
     </div>
     <div class="input-container">
-      <input class="login-input" type="text" name="email" placeholder="Email">
+      <input id="register-email-input"  class="login-input" type="text" name="email" placeholder="Email">
     </div>
     <div class="input-container">
-      <input class="login-input" type="password" name="password" placeholder="Password">
+      <input id="register-password-input"  class="login-input" type="password" name="password" placeholder="Password">
     </div>
     <div class="input-container">
-      <input class="login-input" type="password" name="confirm_password" placeholder="Confirm Password">
+      <input id="register-confirm-password-input"  class="login-input" type="password" name="confirm_password" placeholder="Confirm Password">
     </div>
     <div class="input-container">
       <input class="submit-input" type="submit" value="Register">
