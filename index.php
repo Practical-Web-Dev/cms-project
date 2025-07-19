@@ -4,7 +4,7 @@
 <section class="showcase">
   <h1 class="showcase-heading">Welcome to the Content Site</h1>
   <div class="showcase-link-container">
-    <a class="btn-link purple-bg margin-l-r" href="http://localhost:8888/cms-project/login.php">Sign in</a>
+    <a class="btn-link purple-bg margin-l-r" href="#">Sign in</a>
     <a class="btn-link light-blue-bg margin-l-r" href="#">Sign Up</a>
   </div>
 </section>

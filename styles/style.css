@@ -256,6 +256,9 @@ Login Page
 .error-message {
   color: red;
   text-align: center;
+  font-size: 12px;
+  width: 50%;
+  margin: 5px auto;
 }
 
 /* 
