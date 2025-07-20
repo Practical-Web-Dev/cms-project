@@ -25,6 +25,9 @@
       <li class="nav-li">
         <a href="http://localhost:8888/cms-project/register.php" class="nav-link">Register</a>
       </li>
+           <li class="nav-li">
+        <a href="http://localhost:8888/cms-project/admin.php" class="nav-link">Admin</a>
+      </li>
     </ul>
   </nav>
 </header>
