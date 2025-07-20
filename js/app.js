@@ -1,11 +1,14 @@
 //DOM Elements
 const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
-const loginForm = document.querySelector(".login-form");
-
+const registerForm = document.querySelector(".login-form");
+const loginForm = document.getElementById("login-form-page");
+console.log(registerForm);
+console.log(loginForm);
 
 //Event Listeners
 mobileMenuBtn.addEventListener("click", openMobileNav);
-loginForm.addEventListener("submit", validateForm);
+registerForm.addEventListener("submit", validateRegistrationForm);
+loginForm.addEventListener("submit", validateLoginForm);
 
 
 
@@ -15,7 +18,7 @@ const mainNav = document.querySelector(".main-nav");
 mainNav.classList.toggle("show");
 }
 
-function validateForm (e) {
+function validateRegistrationForm (e) {
 
 //Select error messages
 const usernameError = document.getElementById("username-error");
@@ -81,4 +84,32 @@ if (hasError) {
 
 }
 
+function validateLoginForm(e) {
+
+const usernameError = document.getElementById("username-error");
+const passwordError = document.getElementById("password-error");
+
+usernameError.textContent = "";
+passwordError.textContent = "";
+
+let hasError = false;
+
+const usernameInput = document.getElementById("username-input").value.trim();
+const passwordInput = document.getElementById("password-input").value;
+
+if (usernameInput.length < 3) {
+  usernameError.textContent = "Please enter the correct username for this acccount";
+  hasError = true;
+}
+
+if (passwordInput.length < 6) {
+  passwordError.textContent = "Please enter the correct password for this account";
+  hasError = true;
+}
+
+if (hasError) {
+  e.preventDefault();
+}
+
+}
 

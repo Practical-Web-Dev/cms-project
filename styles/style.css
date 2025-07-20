@@ -257,8 +257,36 @@ Login Page
   color: red;
   text-align: center;
   font-size: 12px;
-  width: 50%;
+  width: 65%;
   margin: 5px auto;
+}
+
+/* 
+
+
+
+
+
+PHP Form Errors
+
+
+
+
+
+
+*/
+
+.php-form-errors-container {
+  width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #afafaf;
+}
+
+.php-error-li {
+  padding: 10px 0px;
+  color: red;
+
 }
 
 /* 
