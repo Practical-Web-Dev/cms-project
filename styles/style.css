@@ -83,6 +83,10 @@ Naviagtion
 
 */
 
+.logged-in-info {
+  color: white;
+}
+
 .mobile-logo-container {
   color: black;
   font-size: 21px;

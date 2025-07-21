@@ -1,7 +1,3 @@
-<?php
-//Start the session
-session_start();
-?>
 <?php $page_title = "Register"; ?>
 <?php include 'includes/head.php' ?>
 <?php include 'includes/header.php' ?>

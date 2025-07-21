@@ -1,3 +1,11 @@
+<?php
+
+//Start session if one isn't already started
+if(session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
