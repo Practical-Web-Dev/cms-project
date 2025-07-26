@@ -11,6 +11,18 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
 
 ?>
 <main class="main-content-container">
+  <!-- Show success Message on screen -->
+  <?php if (isset($_SESSION['success_message'])): ?>
+    <div class="php-form-errors-container success-message">
+      <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?>
+    </div>
+  <?php endif; ?>
+  <!-- Show Error message -->
+     <?php if (isset($_SESSION['error_message'])): ?>
+    <div class="php-form-errors-container error-message">
+      <?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?>
+    </div>
+  <?php endif; ?>
   <section class="dashboard-container">
     <div class="admin-sidebar-container">
       <nav class="admin-nav">

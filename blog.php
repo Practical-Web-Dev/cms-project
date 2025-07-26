@@ -1,31 +1,25 @@
+<?php
+require_once 'includes/config.php';
+ $result = $conn->query("SELECT * FROM posts ORDER BY created_at DESC");
+?>
 <?php $page_title = "Blog"; ?>
 <?php include 'includes/head.php' ?>
 <?php include 'includes/header.php' ?>
 <main class="main-content-container">
   <h1 class="page-header">Blog</h1>
+  <?php while ($post = $result->fetch_assoc()):?>
   <div class="blog-post">
-    <h2 class="post-heading">Blog Post Title</h2>
-    <img class="featured-img m-bottom" src="img/blog-post-img.jpg" alt="blog post image">
-    <p class="blog-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ab nisi repellendus aut sint
-      eligendi ea!
-      Consequatur officia, iure sit qui corrupti harum eveniet quidem ipsum, sunt dolore amet tempora quae aut.</p>
-    <a class="btn-link purple-bg" href="blog-post.php">Read More</a>
+    <h2 class="post-heading"><?php echo htmlspecialchars($post['title']);?></h2>
+    <?php if (!empty($post['featured_image'])): ?>
+    <img class="featured-img m-bottom" src="<?php echo htmlspecialchars($post['featured_image']);?>" alt="blog post image">
+    <?php endif; ?>
+    <p class="blog-text">
+      <?php echo substr(strip_tags($post['content']),0,200) . '...';?>
+    </p>
+    <a class="btn-link purple-bg" href="blog-post.php?id=<?php echo $post['id']; ?>">Read More</a>
   </div>
-  <div class="blog-post">
-    <h2 class="post-heading">Blog Post Title</h2>
-    <img class="featured-img m-bottom" src="img/blog-post-img.jpg" alt="blog post image">
-    <p class="blog-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ab nisi repellendus aut sint
-      eligendi ea!
-      Consequatur officia, iure sit qui corrupti harum eveniet quidem ipsum, sunt dolore amet tempora quae aut.</p>
-    <a class="btn-link purple-bg" href="blog-post.php">Read More</a>
-  </div>
-  <div class="blog-post">
-    <h2 class="post-heading">Blog Post Title</h2>
-    <img class="featured-img m-bottom" src="img/blog-post-img.jpg" alt="blog post image">
-    <p class="blog-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ab nisi repellendus aut sint
-      eligendi ea!
-      Consequatur officia, iure sit qui corrupti harum eveniet quidem ipsum, sunt dolore amet tempora quae aut.</p>
-    <a class="btn-link purple-bg" href="blog-post.php">Read More</a>
-  </div>
+  <?php endwhile; ?>
 </main>
 <?php include 'includes/footer.php' ?>
+
+

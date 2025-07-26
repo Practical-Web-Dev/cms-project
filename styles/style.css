@@ -164,7 +164,7 @@ Naviagtion
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 1rem;
+  margin: 1rem 0rem;
   font-size: 18px;
   border: none;
   font-weight: bold;
@@ -350,6 +350,18 @@ AdminPage
 .create-post-btn {
   background-color: #7ac6c1;
   color: white;
+}
+
+.success-message {
+  color: green;
+  text-align: center;
+  font-size: 21px;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  font-size: 21px;
 }
 
 /* 

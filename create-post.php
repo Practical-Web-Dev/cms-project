@@ -15,6 +15,13 @@ $content = $_POST['post-content'];
 $user_id = $_SESSION['user_id'];
 $image_path = null;
 
+//Validate post content input
+if (empty($content)) {
+  $_SESSION['error_message'] = "Post content cannot be empty!";
+  header("Location: admin.php");
+  exit;
+}
+
 //Handle Featured Image Upload
 if (!empty($_FILES['featured-image'] ['name'])) {
   $target_dir = "uploads/";
@@ -26,14 +33,13 @@ if (!empty($_FILES['featured-image'] ['name'])) {
   $image_name = basename($_FILES['featured-image'] ['name']);
   //Create final file upload path and time stamp it
   $target_file = $target_dir . time() . '_' . $image_name;
-}
 
- //If a featured image exists, store the final file path in the $image_path variable
+  //If a featured image exists, store the final file path in the $image_path variable
 if(move_uploaded_file($_FILES["featured-image"]["tmp_name"], $target_file)) {
   $image_path = $target_file;
 }
 
-
+}
 
 //Insert into Database
 $stmt = $conn->prepare("INSERT INTO posts (title, content, featured_image, user_id) VALUES (?, ?, ?, ?)");
