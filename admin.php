@@ -28,7 +28,7 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
       <nav class="admin-nav">
         <ul class="admin-nav-menu">
           <li class="admin-nav-li">
-            <a class="admin-nav-link" href="#">Create Post</a>
+            <a class="admin-nav-link active-link" href="#">Create Post</a>
           </li>
           <li class="admin-nav-li">
             <a class="admin-nav-link" href="your-posts.php">Your Posts</a>

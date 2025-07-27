@@ -80,6 +80,12 @@ p {
   margin-top: 1rem;
 }
 
+.active-link {
+  color: white !important;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 /* 
 
 
@@ -222,6 +228,27 @@ Home Page
   align-items: center;
   justify-content: center;
   margin-top: 3rem;
+}
+
+/* 
+
+
+
+
+
+Blog Page
+
+
+
+
+
+
+*/
+
+.post-meta {
+  padding-bottom: 10px;
+  font-style: italic;
+  font-size: 16px;
 }
 
 /* 

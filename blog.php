@@ -1,6 +1,6 @@
 <?php
 require_once 'includes/config.php';
- $result = $conn->query("SELECT * FROM posts ORDER BY created_at DESC");
+ $result = $conn->query("SELECT posts.*, cms_users.username FROM posts JOIN cms_users ON posts.user_id = cms_users.id ORDER BY posts.created_at DESC");
 ?>
 <?php $page_title = "Blog"; ?>
 <?php include 'includes/head.php' ?>
@@ -10,6 +10,7 @@ require_once 'includes/config.php';
   <?php while ($post = $result->fetch_assoc()):?>
   <div class="blog-post">
     <h2 class="post-heading"><?php echo htmlspecialchars($post['title']);?></h2>
+    <p class="post-meta"><?php echo "Written by: " . htmlspecialchars($post['username']); ?></p>
     <?php if (!empty($post['featured_image'])): ?>
     <img class="featured-img m-bottom" src="<?php echo htmlspecialchars($post['featured_image']);?>" alt="blog post image">
     <?php endif; ?>
