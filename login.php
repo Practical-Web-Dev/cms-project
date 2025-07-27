@@ -1,4 +1,4 @@
-<?php $page_title = "Register"; ?>
+<?php $page_title = "Login"; ?>
 <?php include 'includes/head.php' ?>
 <?php include 'includes/header.php' ?>
 <?php include 'includes/config.php' ?>
