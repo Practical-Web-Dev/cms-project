@@ -8,6 +8,9 @@ if(!isset($_SESSION['is_logged_in'])) {
   exit;
 }
 
+$error_message = $_SESSION['error_message'] ?? null;
+unset($_SESSION['error_message']);
+
 //Get post ID from Database
 $post_id = $_GET['id'] ?? null;
 
@@ -39,6 +42,11 @@ if ($_SESSION['user_id'] != $post['user_id']) {
 <?php include 'includes/header.php' ?>
 <main class="main-content-container">
   <h1 class="page-header">Edit Post</h1>
+    <?php if ($error_message): ?>
+    <div class="error-message">
+      <?php echo htmlspecialchars($error_message); ?>
+    </div>
+  <?php endif; ?>
   <div class="admin-main-page-container">
     <form id="blog-post-form" action="update-post.php" method="POST" enctype="multipart/form-data"
       class="create-post-form">

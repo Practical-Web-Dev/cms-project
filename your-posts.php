@@ -10,6 +10,9 @@ if(!isset($_SESSION['is_logged_in'])) {
   exit;
 }
 
+$success_message = $_SESSION['success_message'] ?? null;
+unset($_SESSION['success_message']);
+
 $user_id = $_SESSION['user_id'];
 
 //Fetch Posts By User That is Logged in
@@ -24,6 +27,11 @@ $result = $stmt->get_result();
 <?php include 'includes/header.php' ?>
 <main class="main-content-container">
   <h1 class="page-header">Your Posts</h1>
+  <?php if ($success_message): ?>
+    <div class="success-message">
+      <?php echo htmlspecialchars($success_message); ?>
+    </div>
+  <?php endif; ?>
 <table class="db-table">
   <thead>
     <tr>

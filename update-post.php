@@ -1,18 +1,3 @@
-<!-- 
- 
-
-
-✅ Check login and post ownership
-✅ Validate input fields
-✅ Handle optional featured image upload
-✅ Update the post in the database
-✅ Redirect back to admin.php with a success or error message
-
-
-
-
--->
-
 <?php
 session_start();
 require_once 'includes/config.php';
@@ -29,7 +14,7 @@ exit;
 }
 
 //Grab form inputs and sanitize. If input is empty it is set to null
-$post_id = $POST['post_id'] ?? null;
+$post_id = $_POST['post_id'] ?? null;
 $title = trim($_POST['post-title'] ?? null);
 $content = trim($_POST['post-content'] ?? null);
 $user_id = $_SESSION['user_id'] ?? null;
@@ -57,44 +42,52 @@ if ($result->num_rows === 0) {
 }
 
 $post = $result->fetch_assoc();
-$image_path = $post['featured_image'];
+$image_path = $post['featured-image'];
 
-//LEFT OFF HERE!
+//Handle New Featured Image Upload (if the user uploads a new image)
+if (isset($_FILES['featured-image']) && $_FILES['featured-image']['error']=== UPLOAD_ERR_OK) {
 
-//Handle Featured Image Upload
-if (!empty($_FILES['featured-image'] ['name'])) {
-  $target_dir = "uploads/";
-  if (!is_dir($target_dir)) {
-    mkdir($target_dir, 0755, true);
-  }
+$allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+$file_type = $_FILES['featured-image']['type'];
 
-  //Disguise file path for featured image
-  $image_name = basename($_FILES['featured-image'] ['name']);
-  //Create final file upload path and time stamp it
-  $target_file = $target_dir . time() . '_' . $image_name;
+if(in_array($file_type, $allowed_types)) { 
+  $upload_dir = 'uploads/';
+  $new_image_name = uniqid('img_') . '_' . basename($_FILES['featured-image'] ['name']);
+  $upload_path = $upload_dir . $new_image_name;
 
-  //If a featured image exists, store the final file path in the $image_path variable
-if(move_uploaded_file($_FILES["featured-image"]["tmp_name"], $target_file)) {
-  $image_path = $target_file;
+if(move_uploaded_file($_FILES['featured-image'] ['tmp_name'], $upload_path)){
+  $image_path = $upload_path;
+} else {
+  $_SESSION['error_message'] = 'Image upload failed.';
+  header("Location: edit-post.php?id=" . urldecode($post_id));
+  exit;
+}
+
+} else {
+  $_SESSION['error_message'] = "Invalid image file type detected. Image must be jpeg, png, or gif";
+  header("Location: edit-post.php?id=" . urldecode($post_id));
+  exit;
 }
 
 }
+
 
 //Insert into Database
-$stmt = $conn->prepare("INSERT INTO posts (title, content, featured_image, user_id) VALUES (?, ?, ?, ?)");
-$stmt->bind_param("sssi", $title, $content, $image_path, $user_id);
+$stmt = $conn->prepare("UPDATE posts SET title = ?, content = ?, featured_image = ? WHERE id = ? AND user_id = ?");
+$stmt->bind_param("sssii", $title, $content, $image_path, $post_id, $user_id);
 
 if($stmt->execute()) {
-  $_SESSION['success_message'] = "Post was successfully created";
+  $_SESSION['success_message'] = "Post was successfully updated";
+  header("Location: your-posts.php");
+  exit;
 } else {
-  $_SESSION['error_message'] = "Something went wrong. Please try again";
+   header("Location: edit-post.php?id=" . urlencode($post_id));
+  exit;
 }
 
 $stmt->close();
 $conn->close();
 
-header("Location: admin.php");
-exit;
 
 ?>
 
