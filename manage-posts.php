@@ -3,44 +3,38 @@ session_start();
 require_once 'includes/config.php';
 
 
-//Check if user is logged in
-if(!isset($_SESSION['is_logged_in'])) {
+//Check if Admin is logged in
+if(!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
+  $_SESSION['login_errors'] = ['Must be an admin to access this page'];
   header("Location: login.php");
   exit;
 }
 
+//Check if role is set and the logged in user is admin
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+  die("Access denied. Admins only!");
+}
+
+//Success messages from session
 $success_message = $_SESSION['success_message'] ?? null;
 unset($_SESSION['success_message']);
 
-//Fetch Posts By User That is Logged in
-$role = $_SESSION['role'] ?? 'user';
-if ($role === 'admin') {
   //Admin can see all posts
-  $stmt = $conn->prepare("SELECT posts.id, posts.title, posts.created_at, cms_users.username
+  $stmt = $conn->prepare("SELECT posts.*, cms_users.username
    FROM posts 
-   JOIN cms_users 
+   JOIN cms_users
    ON posts.user_id = cms_users.id 
-   ORDER BY created_at DESC");
-} else {
-  //Author only see own posts
-    $stmt = $conn->prepare("SELECT posts.id, posts.title, posts.created_at, cms_users.username
-   FROM posts 
-   JOIN cms_users 
-   ON posts.user_id = cms_users.id 
-   WHERE posts.user_id = ?
-   ORDER BY created_at DESC");
-   $stmt->bind_param("i", $_SESSION['user_id']);
-}
+   ORDER BY posts.created_at DESC");
 
 $stmt->execute();
 $result = $stmt->get_result();
 
 ?>
-<?php $page_title = "Your Posts"; ?>
+<?php $page_title = "Manage Posts"; ?>
 <?php include 'includes/head.php' ?>
 <?php include 'includes/header.php' ?>
 <main class="main-content-container">
-  <h1 class="page-header">Your Posts</h1>
+  <h1 class="page-header">All Posts (Admin)</h1>
   <!-- Success Message Display -->
   <?php if ($success_message): ?>
   <div class="success-message">
@@ -62,10 +56,10 @@ $result = $stmt->get_result();
             <a class="admin-nav-link" href="admin.php">Create Post</a>
           </li>
           <li class="admin-nav-li">
-            <a class="admin-nav-link active-link" href="your-posts.php">Your Posts</a>
+            <a class="admin-nav-link" href="your-posts.php">Your Posts</a>
           </li>
           <li class="admin-nav-li">
-            <a class="admin-nav-link" href="manage-posts.php">Manage Posts</a>
+            <a class="admin-nav-link active-link" href="manage-posts.php">Manage Posts</a>
           </li>
           <li class="admin-nav-li">
             <a class="admin-nav-link" href="blog.php">View Blog</a>

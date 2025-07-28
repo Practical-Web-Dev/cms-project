@@ -31,8 +31,7 @@ if($result->num_rows === 0) {
 $post = $result->fetch_assoc();
 
 //Check post ownership
-if ($_SESSION['user_id'] != $post['user_id']) {
-
+if ($_SESSION['role'] !== 'admin' && $_SESSION['user_id'] != $post['user_id']) {
   die("You are not authorized to edit this post!");
 }
 

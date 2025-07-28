@@ -2,6 +2,8 @@
 session_start();
 require_once 'includes/config.php';
 
+$role = $_SESSION['role'] ?? 'user';
+
 //Check is the user is logged in
 if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
   header("Location: login.php");
@@ -29,15 +31,21 @@ if(!$post_id || !$title || !$content || !$user_id) {
 
 
 //Check of the post belongs to the user
-$stmt = $conn->prepare("SELECT * FROM posts WHERE id = ? AND user_id = ?");
-$stmt->bind_param("ii", $post_id, $user_id);
+if ($role === 'admin') {
+  $stmt = $conn->prepare("SELECT * FROM posts WHERE id = ?");
+  $stmt->bind_param("i", $post_id);
+} else {
+  $stmt = $conn->prepare("SELECT * FROM posts WHERE id = ? AND user_id = ?");
+    $stmt->bind_param("ii", $post_id, $user_id);
+}
+
 $stmt->execute();
 $result = $stmt->get_result();
 
 //If the post ID and user ID don't match or don't exist
 if ($result->num_rows === 0) {
   $_SESSION['error_message'] = 'Post not found or access denied';
-  header("Location admin.php");
+  header("Location: admin.php");
   exit;
 }
 
@@ -73,8 +81,17 @@ if(move_uploaded_file($_FILES['featured-image'] ['tmp_name'], $upload_path)){
 
 
 //Insert into Database
-$stmt = $conn->prepare("UPDATE posts SET title = ?, content = ?, featured_image = ? WHERE id = ? AND user_id = ?");
-$stmt->bind_param("sssii", $title, $content, $image_path, $post_id, $user_id);
+if($role === 'admin') {
+  $stmt = $conn->prepare("UPDATE posts 
+  SET title = ?, content = ?, featured_image = ? 
+  WHERE id = ?");
+$stmt->bind_param("sssi", $title, $content, $image_path, $post_id);
+} else {
+  $stmt = $conn->prepare("UPDATE posts SET title = ?, content = ?, featured_image = ? WHERE id = ? AND user_id = ?");
+  $stmt->bind_param("sssii", $title, $content, $image_path, $post_id, $user_id);
+}
+
+
 
 if($stmt->execute()) {
   $_SESSION['success_message'] = "Post was successfully updated";

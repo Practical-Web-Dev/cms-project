@@ -34,7 +34,7 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
             <a class="admin-nav-link" href="your-posts.php">Your Posts</a>
           </li>
           <li class="admin-nav-li">
-            <a class="admin-nav-link" href="#">Manage Posts</a>
+            <a class="admin-nav-link" href="manage-posts.php">Manage Posts</a>
           </li>
           <li class="admin-nav-li">
             <a class="admin-nav-link" href="blog.php">View Blog</a>

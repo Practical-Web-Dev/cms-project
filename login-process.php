@@ -25,7 +25,7 @@ if (empty($password)) {
 if(empty($_SESSION['login_errors'])) {
 
 //Prepared statement to find user by username
-$stmt = $conn->prepare("SELECT id, username, password FROM cms_users WHERE username = ?");
+$stmt = $conn->prepare("SELECT id, username, password, role FROM cms_users WHERE username = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -42,6 +42,7 @@ if(password_verify($password, $user['password'])) {
   $_SESSION['is_logged_in'] = true; //Create boolean so php knows they are successfully logged in
   $_SESSION['user_id'] = $user['id']; //Store the users ID number from their actual ID in our database
   $_SESSION['username'] = $user['username']; //Store the username in the session
+  $_SESSION['role'] = $user['role']; 
   header("Location: admin.php");
   exit;
 
