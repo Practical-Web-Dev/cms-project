@@ -178,6 +178,21 @@ Naviagtion
   font-size: 18px;
   border: none;
   font-weight: bold;
+  column-gap: 10px;
+}
+
+.showcase-btn-link {
+  height: 40px;
+  width: 120px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: .5rem;
+  font-size: 18px;
+  border: none;
+  font-weight: bold;
+  column-gap: 10px;
 }
 
 .featured-img {

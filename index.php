@@ -4,8 +4,8 @@
 <section class="showcase">
   <h1 class="showcase-heading">Welcome to the Content Site</h1>
   <div class="showcase-link-container">
-    <a class="btn-link purple-bg margin-l-r" href="#">Sign in</a>
-    <a class="btn-link light-blue-bg margin-l-r" href="#">Sign Up</a>
+    <a class="showcase-btn-link purple-bg margin-l-r" href="login.php">Sign in</a>
+    <a class="showcase-btn-link light-blue-bg margin-l-r" href="register.php">Sign Up</a>
   </div>
 </section>
 <main class="main-content-container">

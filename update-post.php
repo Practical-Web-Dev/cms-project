@@ -30,7 +30,7 @@ if(!$post_id || !$title || !$content || !$user_id) {
 }
 
 
-//Check of the post belongs to the user
+//Check of the post belongs to the user or the admin
 if ($role === 'admin') {
   $stmt = $conn->prepare("SELECT * FROM posts WHERE id = ?");
   $stmt->bind_param("i", $post_id);
@@ -50,7 +50,7 @@ if ($result->num_rows === 0) {
 }
 
 $post = $result->fetch_assoc();
-$image_path = $post['featured-image'];
+$image_path = $post['featured_image'];
 
 //Handle New Featured Image Upload (if the user uploads a new image)
 if (isset($_FILES['featured-image']) && $_FILES['featured-image']['error']=== UPLOAD_ERR_OK) {
@@ -77,6 +77,9 @@ if(move_uploaded_file($_FILES['featured-image'] ['tmp_name'], $upload_path)){
   exit;
 }
 
+} else {
+  //Keep existing image path if no new image is uploaded
+  $image_path = $post['featured_image'];
 }
 
 
